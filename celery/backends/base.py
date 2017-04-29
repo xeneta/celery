@@ -563,7 +563,8 @@ class KeyValueStoreBackend(BaseBackend):
             j = deps.join_native if deps.supports_native_join else deps.join
             try:
                 with allow_join_result():
-                    ret = j(timeout=3.0, propagate=propagate)
+                    ret = j(timeout=60.0 * 20, propagate=propagate)
+                    # 20 Minutes timeout on chord join.
             except Exception as exc:
                 try:
                     culprit = next(deps._failed_join_report())
